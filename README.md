@@ -1,12 +1,12 @@
 # debian-apt-helper
 Command line tool for managing packages and keeping track of downloads
 
-On startup a new directory called db-apt-helper/remove-all.sh will be generated
+- Simple menu to search/install/remove packages with apt
 
-- Enter package name or search query in the main menu
-- Pick from results and enter full package name into the next menu
+- On startup a new directory called db-apt-helper will be generated containing a file called remove-all.sh
 
-All package names will be appended to remove-all.sh to create a full uninstall script for downloaded packages.
+- All package names will be appended to remove-all.sh to create a full uninstall script for downloaded packages.
+
 ***************************************************************************
 
     debian-apt-helper is free software: you can redistribute it and/or modify
