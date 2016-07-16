@@ -4,11 +4,9 @@
     if [ ! -d ~/db-apt-helper ]; then
 	mkdir -p ~/db-apt-helper
         touch ~/db-apt-helper/remove-all.sh
-            printf "sudo apt-get remove --purge " > ~/db-apt-helper/remove-all.sh
 
     elif [ ! -f ~/db-apt-helper/remove-all.sh ]; then
         touch ~/db-apt-helper/remove-all.sh
-            printf "sudo apt-get remove --purge " > ~/db-apt-helper/remove-all.sh
 
     else restart
 fi
@@ -21,11 +19,11 @@ restart() {
 clear
 echo ""
 echo ""
-echo "--------------------------------------------------"
+echo "----------------------------------------------------"
 echo ""
-echo "* * * APT Helper for debian based distros:   * * *"
+echo " * * * APT Helper for debian based distros:   * * *"
 echo ""
-echo "--------------------------------------------------"
+echo "----------------------------------------------------"
 echo ""
 echo "Search package name or keyword:"
 echo ""
@@ -38,21 +36,20 @@ echo ""
 
         case "$input" in
 
-        [0-9A-Za-z]* ) sudo apt-cache search $input | grep $input ;;
-        * ) echo "please enter again"
-            sleep 2s
-                restart ;;
+        [0-9A-Za-z]* ) sudo apt-cache search $input | grep $input ;; ### add error checking later
+        * ) restart ;;
+        
         esac
 
 #######################
 
 # install menu
 echo ""
-echo "-------------------------------------------------"
+echo "-------------------------------------------------------------"
 echo ""
-echo "Enter the app to install or press enter to go back"
+echo " * *  Enter the pkg to install or press enter to go back * *"
 echo ""
-echo "-------------------------------------------------"
+echo "-------------------------------------------------------------"
 echo ""
 
     read second
@@ -70,7 +67,13 @@ echo ""
 inst() {
 
 sudo apt-get install $second
-printf '%s' "$second " >> ~/db-apt-helper/remove-all.sh
+
+printf '%s' "$second " >> ~/db-apt-helper/remove-all.sh ### still working on making this append to the same line as remove command.
+
+if grep -Fx "sudo apt-get remove --purge " ~/db-apt-helper/remove-all.sh
+    then exit
+else sed -i '1i sudo apt-get remove --purge ' ~/db-apt-helper/remove-all.sh
+fi
 
 }
 
